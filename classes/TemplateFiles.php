@@ -1,4 +1,9 @@
 <?php
+function filename_to_description($filename){
+	$filename= str_replace("_", " ", $filename);
+	$filename= str_replace(".jpg", "", $filename);
+	return $filename;
+}
 
 /**
  * @package AutoIndex
@@ -83,7 +88,8 @@ class TemplateFiles extends TemplateInfo
 			}
 			case 'filename':
 			{
-				return Url::html_output($this -> temp_item -> __get('filename'));
+				// added by rubo77
+				return Url::html_output(filename_to_description($this -> temp_item -> __get('filename')));
 			}
 			case 'file_ext':
 			{
@@ -93,6 +99,15 @@ class TemplateFiles extends TemplateInfo
 			{
 				return $this -> temp_item -> __get('size') -> formatted();
 			}
+			// case 'width':
+			// {
+			// 	#var_dump($this);die;
+			// 	return $this -> temp_item -> width;
+			// }
+			// case 'height':
+			// {
+			// 	return $this -> temp_item -> height;
+			// }
 			case 'bytes':
 			{
 				return $this -> temp_item -> __get('size') -> __get('bytes');
