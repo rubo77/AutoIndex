@@ -18,3 +18,4 @@ access_log
 README.md
 docker-compose.yml
 .editorconfig
+AutoIndex.conf.php.example
