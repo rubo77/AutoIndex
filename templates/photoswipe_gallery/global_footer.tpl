@@ -65,7 +65,7 @@
 
 </div>
 
-<script src="js/footer.js"></script>
+<script src="templates/photoswipe_gallery/js/footer.js"></script>
 
 
 </body>
