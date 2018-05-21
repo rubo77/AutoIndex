@@ -64,7 +64,7 @@ class Logging
 			$h = @fopen($this -> filename, 'ab');
 			if ($h === false)
 			{
-				throw new ExceptionDisplay('Could not open log file for writing.'
+				throw new ExceptionDisplay('Could not open log file "'.$this -> filename.'" for writing.'
 				. ' Make sure PHP has write permission to this file.');
 			}
 			global $dir, $ip, $host;
