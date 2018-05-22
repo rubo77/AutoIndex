@@ -1,104 +1,56 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
-<head>
-	<title>AutoIndex PHP Script: Template Readme</title>
-	<style type="text/css" title="AutoIndex Default">
-		html, body
-		{
-			font-family: verdana, lucidia, sans-serif;
-			font-size: 13px;
-			background-color: #F0F0F0;
-			color: #000000;
-		}
-		h4, h5
-		{
-			text-align: center;
-			color: #000000;
-		}
-		a
-		{
-			color: #000000;
-			text-decoration: none;
-		}
-		#main
-		{
-			border: 1px solid #7F8FA9;
-			font-size: 13px;
-			padding-left: 6px;
-			background: #F2F6FC;
-			color: #000020;
-		}
-	</style>
-</head>
+# AutoIndex PHP Script (version 3.x)
 
-<body>
+by Justin Hagstrom <JustinHagstrom [at] yahoo [dot] com> and Ruben Barkow <github [at] r.z11.de>  
+AutoIndex is provided under the terms of the GNU General Public License (GPL).
 
-<h4>
-	<a href="http://autoindex.sourceforge.net">AutoIndex PHP Script</a>
-</h4>
-<h5>
-	Template Readme
-</h5>
-<p>
-	&nbsp;
-</p>
+https://github.com/rubo77/AutoIndex
+Please post any questions as issue on GitHub.
 
-<div id="main">
-<p>
-	This is a list of all the variables that can be used in the template files.
-</p>
-<p>
-	&nbsp;
-</p>
-<h5>
-	<em>global_header.tpl</em> / <em>global_footer.tpl</em>
-</h5>
-<p>
-	Info about the current directory:
-</p>
-<pre>
+To install and run the script, simply upload the contents of this directory to a server with PHP support (PHP 5.0 or higher is required).  
+Then, point your browser to the `index.php` file in that folder. The first time you do this, it will take you to a configuration page.  
+To use all the default values, just click the button at the bottom, or customize it however you want.
+
+# serve a minimal PHP server on Port 3000
+
+  php -S localhost:3000
+
+# Templates
+
+This is a list of all the variables that can be used in the template files.
+
+ 
+## global_header.tpl / global_footer.tpl
+
+Info about the current directory:
+
 	{info:dir}	the path of the current directory, including the base dir
 	{info:subdir}	the path of the current directory, not including the base dir
 	{info:version}	the version of AutoIndex
 	{info:page_time}	the time (in milliseconds) it took to generate the page
-</pre>
-<p>
-	All words from the language file:
-</p>
-<pre>
+
+All words from the language file:
+
 	{words:foo}
 	... see language file for all options
-</pre>
-<p>
-	All settings from the config file:
-</p>
-<pre>
+
+All settings from the config file:
+
 	{config:foo}
 	... see AutoIndex.conf.php for all options
-</pre>
-<p>
-	You can include another specific file using the {include} command:
-</p>
-<pre>
+
+You can include another specific file using the {include} command:
+
 	{include:filename}
-</pre>
-<p>
-	Anything between <code>/* */</code> will not be displayed in the HTML output.
-</p>
-<p>
-	&nbsp;
-</p>
-<h5>
-	<em>table_header.tpl</em> / <em>table_footer.tpl</em>
-</h5>
-<p>
-	All previously mentioned variables, plus:
-</p>
-<p>
-	Info about current directory:
-</p>
-<pre>
+
+Anything between `/*` and `*/` will not be displayed in the HTML output.
+
+ 
+## table_header.tpl / table_footer.tpl
+
+All previously mentioned variables, plus:
+
+Info about current directory:
+
 	{info:path_nav}
 	{info:total_files}
 	{info:total_folders}
@@ -111,11 +63,9 @@
 	{info:next_page_link}
 	{info:current_page_number}
 	{info:last_page_number}
-</pre>
-<p>
-	If-statements:
-</p>
-<pre>
+
+If-statements:
+
 	{if:show_dir_size}
 	{if:search_enabled}
 	{if:use_login_system}
@@ -126,37 +76,28 @@
 	{if:description_file}
 	{if:download_count}
 	{if:entries_per_page}
-</pre>
-<p>
-	To end an if-statement, use <code>{end if:varibale}</code>
-	<br />For example, <code>{if:days_new} ... {end if:days_new}</code>
-</p>
-<p>
-	Sort modes:
-</p>
-<pre>
+
+To end an if-statement, use `{end if:varibale}`
+For example, `{if:days_new} ... {end if:days_new}`
+
+Sort modes:
+
 	{sort:filename}
 	{sort:size}
 	{sort:m_time}
 	{sort:description}
 	{sort:downloads}
-</pre>
-<p>
-	&nbsp;
-</p>
-<h5>
-	<em>each_file.tpl</em>
-</h5>
-<p>
-	All previously mentioned variables, plus:
-</p>
-<p>
-	Properties for individual files:
-</p>
-<pre>
+
+ 
+## each_file.tpl
+
+All previously mentioned variables, plus:
+
+## Properties for individual files:
+
 	{file:filename}		the name of the file or folder
 	{file:link}		the link to the file (using the ?dir and ?file parameters in the URL)
-	{file:file_ext}		the file extension (&quot;dir&quot; for a directory)
+	{file:file_ext}		the file extension ("dir" for a directory)
 	{file:size}		the size (formatted as a string)
 	{file:width}		the width of an image in px (formatted as a string)
 	{file:height}		the height of an image in px (formatted as a string)
@@ -172,15 +113,10 @@
 	{file:description}	the description of the current file
 	{file:icon}		the icon image for the filetype
 	{file:parent_dir}	the name of the file's parent directory
-	{file:tr_class}		this returns &quot;light_row&quot; or &quot;dark_row&quot; for every other file
+	{file:tr_class}		this returns "light_row" or "dark_row" for every other file
 	{file:if:is_file} ... {end if}		true if it is a file
 	{file:if:is_dir} ... {end if}		true if it is a folder or link to parent directory
 	{file:if:is_real_dir} ... {end if}	true if it is a folder
 	{file:if:is_parent_dir} ... {end if}	true if it is a link to parent directory
 	{do_every:x} ... {end do_every} where x is a number.
 		The code in between will be displayed every x files.
-</pre>
-</div>
-
-</body>
-</html>
