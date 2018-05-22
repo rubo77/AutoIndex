@@ -12,7 +12,15 @@ To use all the default values, just click the button at the bottom, or customize
 
 # serve a minimal PHP server on Port 3000
 
-  php -S localhost:3000
+    php -S localhost:3000
+
+# Image thunbnail orientation
+
+If you have images in your files, there is automatically generated a thumbnail. If
+they are rotated by EXIF data, PHP cannot correctly interpret this rotation correctly.
+To repair this, you can use the tool `jhead` to really rotate the images i.e. with:
+
+    for i in \*.{gif,png,jpg}; do jhead -autorot -rgt "$i"; done
 
 # Templates
 
