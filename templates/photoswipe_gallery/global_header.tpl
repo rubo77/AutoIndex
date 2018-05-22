@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>{words:index of} {info:dir}</title>
+	<title>Anna Kuder - Von Farben angesteckt</title>
 	<link href="templates/photoswipe_gallery/css/style.css" rel="stylesheet" type="text/css" />
 	<link href="templates/photoswipe_gallery/css/photoswipe.css" rel="stylesheet" type="text/css" />
 	<link href="templates/photoswipe_gallery/css/default-skin/default-skin.css" rel="stylesheet" type="text/css" />
