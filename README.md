@@ -20,7 +20,7 @@ If you have images in your files, there is automatically generated a thumbnail. 
 they are rotated by EXIF data, PHP cannot correctly interpret this rotation correctly.
 To repair this, you can use the tool `jhead` to really rotate the images i.e. with:
 
-    for i in \*.{gif,png,jpg}; do jhead -autorot -rgt "$i"; done
+    for i in *.{gif,png,jpg}; do jhead -autorot -rgt "$i"; done
 
 # Templates
 
