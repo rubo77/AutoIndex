@@ -21,15 +21,9 @@ img{
   justify-content: space-between;
 }
 
-figure{
-  display: flex;
-  width: 25%;
-  overflow: hidden;
-  justify-content: center;
-  align-items: center;
-  margin: 0 46px 91px 46px;
-  box-shadow: 5px 5px 10px #ccc;
-  background: #efefef;
+
+.pswp__caption__center{
+  font-size: 13px;
 }
 
 figcaption {
@@ -37,14 +31,41 @@ figcaption {
   position: absolute;
   background: #eee;
   padding: 10px;
-  width: 22%;
+  width: 62%;
   font-weight: bold;
-  min-height: 40%;
+  min-height: 20%;
   cursor: pointer;
+  transition-timing-function: ease;
+  transition: 0.5s;
 }
 figcaption:hover{
   opacity: 0.7;
 }
-.pswp__caption__center{
-  font-size: 13px;
+figure{
+  display: flex;
+  overflow: hidden;
+  justify-content: center;
+  align-items: center;
+  margin: 0 46px 91px 46px;
+  box-shadow: 5px 5px 10px #ccc;
+  background: #efefef;
+  width: 75%;
+}
+@media only screen and (min-width: 618px) {
+  figcaption { 
+    width: 28%;
+    min-height: 30%;
+  }
+  figure{
+    width: 35%;
+  }
+}
+@media only screen and (min-width: 1106px) {
+  figcaption { 
+    width: 22%;
+    min-height: 40%;
+  }
+  figure{
+    width: 25%;
+  }
 }
