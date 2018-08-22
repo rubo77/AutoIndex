@@ -6,6 +6,10 @@ body{
     padding:20px;
     font-family: sans-serif;
 }
+h1{
+  text-align: center;
+  padding-bottom: 24px;
+}
 img{
   height: auto;
   max-width: 100%;
