@@ -1,6 +1,6 @@
 # AutoIndex PHP Script (version 3.x)
 
-by Justin Hagstrom <JustinHagstrom [at] yahoo [dot] com> and Ruben Barkow <github [at] r.z11.de>  
+by Justin Hagstrom <JustinHagstrom [at] yahoo [dot] com> and Ruben Barkow-Kuder <github [at] r.z11.de>  
 AutoIndex is provided under the terms of the GNU General Public License (GPL).
 
 https://github.com/rubo77/AutoIndex
@@ -14,7 +14,7 @@ To use all the default values, just click the button at the bottom, or customize
 
     php -S localhost:3000
 
-# Image thunbnail orientation
+# Image thumbnail orientation
 
 If you have images in your files, there is automatically generated a thumbnail. If
 they are rotated by EXIF data, PHP cannot correctly interpret this rotation correctly.
@@ -24,9 +24,14 @@ To repair this, you can use the tool `jhead` to really rotate the images i.e. wi
 
 # Templates
 
+At the moment, there are only two templates:
+
+- default
+- photoswipe_gallery
+
 This is a list of all the variables that can be used in the template files.
 
- 
+
 ## global_header.tpl / global_footer.tpl
 
 Info about the current directory:
@@ -52,7 +57,7 @@ You can include another specific file using the {include} command:
 
 Anything between `/*` and `*/` will not be displayed in the HTML output.
 
- 
+
 ## table_header.tpl / table_footer.tpl
 
 All previously mentioned variables, plus:
@@ -96,7 +101,7 @@ Sort modes:
 	{sort:description}
 	{sort:downloads}
 
- 
+
 ## each_file.tpl
 
 All previously mentioned variables, plus:
