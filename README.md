@@ -10,9 +10,15 @@ To install and run the script, simply upload the contents of this directory to a
 Then, point your browser to the `index.php` file in that folder. The first time you do this, it will take you to a configuration page.  
 To use all the default values, just click the button at the bottom, or customize it however you want.
 
-# serve a minimal PHP server on Port 3000
+# Webserver
+
+## Serve a minimal PHP server on Port 3000
 
     php -S localhost:3000
+
+## Or use Docker to create a container with apache and PHP:
+
+    docker-compose up -d
 
 # Image thumbnail orientation
 
@@ -24,13 +30,13 @@ To repair this, you can use the tool `jhead` to really rotate the images i.e. wi
 
 # Templates
 
-At the moment, there are only two templates:
+You can choose between those templates:
 
 - default
 - photoswipe_gallery
+- simple_image_gallery
 
-This is a list of all the variables that can be used in the template files.
-
+This is a list of all the variables that can be used in the template files:
 
 ## global_header.tpl / global_footer.tpl
 
