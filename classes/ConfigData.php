@@ -125,7 +125,7 @@ class ConfigData implements Iterator
 		}
 		$this -> valid = true;
 		$this -> filename = $file;
-		$contents = @file($file);
+		$contents = file($file);
 		if ($contents === false)
 		{
 			throw new ExceptionFatal('Error reading file <em>'
@@ -177,7 +177,7 @@ class ConfigData implements Iterator
 	{
 		if ($this -> is_set($item))
 		{
-			$h = @fopen($this -> filename, 'wb');
+			$h = fopen($this -> filename, 'wb');
 			if ($h === false)
 			{
 				throw new ExceptionFatal('Could not open file <em>'
@@ -193,7 +193,7 @@ class ConfigData implements Iterator
 		}
 		else
 		{
-			$h = @fopen($this -> filename, 'ab');
+			$h = fopen($this -> filename, 'ab');
 			if ($h === false)
 			{
 				throw new ExceptionFatal('Could not open file <em>'

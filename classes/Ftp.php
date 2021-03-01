@@ -70,7 +70,7 @@ class Ftp extends DirectoryList
 		$path = Item::make_sure_slash($path);
 		$is_dir = $this -> contents =  array();
 		$this -> dir_name = $path;
-		$raw_list = @ftp_rawlist($this -> handle, $path);
+		$raw_list = ftp_rawlist($this -> handle, $path);
 		if ($raw_list === false)
 		{
 			throw new ExceptionDisplay('Unable to read directory contents of FTP server.');
@@ -98,7 +98,7 @@ class Ftp extends DirectoryList
 	 */
 	public function get_file($local, $remote)
 	{
-		if (!@ftp_get($this -> handle, $local, $remote, FTP_BINARY))
+		if (!ftp_get($this -> handle, $local, $remote, FTP_BINARY))
 		{
 			throw new ExceptionDisplay('Unable to transfer file from FTP server.');
 		}
@@ -110,7 +110,7 @@ class Ftp extends DirectoryList
 	 */
 	public function put_file($local, $remote)
 	{
-		if (!@ftp_put($this -> handle, $remote, $local, FTP_BINARY))
+		if (!ftp_put($this -> handle, $remote, $local, FTP_BINARY))
 		{
 			throw new ExceptionDisplay('Unable to transfer file to FTP server.');
 		}
@@ -126,16 +126,16 @@ class Ftp extends DirectoryList
 	 */
 	public function __construct($host, $port, $passive, $directory, $username, $password)
 	{
-		$this -> handle = @ftp_connect(trim($host), (int)$port);
+		$this -> handle = ftp_connect(trim($host), (int)$port);
 		if ($this -> handle === false)
 		{
 			throw new ExceptionDisplay('Could not connect to FTP server.');
 		}
-		if (!@ftp_login($this -> handle, $username, $password))
+		if (!ftp_login($this -> handle, $username, $password))
 		{
 			throw new ExceptionDisplay('Incorrect login for FTP server.');
 		}
-		if ($passive && !@ftp_pasv($this -> handle, true))
+		if ($passive && !ftp_pasv($this -> handle, true))
 		{
 			throw new ExceptionDisplay('Could not set passive mode for FTP server.');
 		}

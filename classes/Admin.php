@@ -44,12 +44,12 @@ class Admin
 	 * @var int The level of the logged in user
 	 */
 	private $level;
-	
+
 	/**
 	 * @var string The name of the logged in user
 	 */
 	private $username;
-	
+
 	/**
 	 * @param string $path The path of the directory to create
 	 * @return bool True on success, false on failure
@@ -57,7 +57,7 @@ class Admin
 	public static function mkdir_recursive($path)
 	{
 		$path = Item::make_sure_slash($path);
-		if (@is_dir($path))
+		if (is_dir($path))
 		{
 			return true;
 		}
@@ -65,9 +65,9 @@ class Admin
 		{
 			return false;
 		}
-		return @mkdir($path, 0755);
+		return mkdir($path, 0755);
 	}
-	
+
 	/**
 	 * Deletes a directory and all its contents.
 	 *
@@ -77,7 +77,7 @@ class Admin
 	private static function rmdir_recursive($path)
 	{
 		$path = Item::make_sure_slash($path);
-		$list = @scandir($path);
+		$list = scandir($path);
 		if ($list === false)
 		{
 			return false;
@@ -89,11 +89,11 @@ class Admin
 				continue;
 			}
 			$dir = "$path$file/";
-			@is_dir($dir) ? self::rmdir_recursive($dir) : @unlink($dir);
+			is_dir($dir) ? self::rmdir_recursive($dir) : unlink($dir);
 		}
-		return @rmdir($path);
+		return rmdir($path);
 	}
-	
+
 	/**
 	 * Copies a remote file to the local server.
 	 *
@@ -108,18 +108,18 @@ class Admin
 		}
 		global $dir;
 		$local_file = $dir . Item::get_basename($url);
-		if (@file_exists($local_file))
+		if (file_exists($local_file))
 		{
 			throw new ExceptionDisplay('The file already exists in this directory.');
 		}
 		$remote = $protocol . $url;
-		$r = @fopen($remote, 'rb');
+		$r = fopen($remote, 'rb');
 		if ($r === false)
 		{
 			throw new ExceptionDisplay('Cannot open remote file for reading: <em>'
 			. Url::html_output($remote) . '</em>');
 		}
-		$l = @fopen($local_file, 'wb');
+		$l = fopen($local_file, 'wb');
 		if ($l === false)
 		{
 			throw new ExceptionDisplay('Cannot open local file for writing.');
@@ -136,7 +136,7 @@ class Admin
 		fclose($l);
 		fclose($r);
 	}
-	
+
 	/**
 	 * @param string $filename The path to the file that stores the info
 	 * @param string $old_name The old name of the file or folder to update inside of $filename
@@ -144,18 +144,18 @@ class Admin
 	 */
 	private static function update_file_info($filename, $old_name, $new_name)
 	{
-		if (!@is_file($filename))
+		if (!is_file($filename))
 		{
 			throw new ExceptionDisplay('The file <em>'
 			. Url::html_output($filename) . '</em> does not exist.');
 		}
-		$text = @file_get_contents($filename);
+		$text = file_get_contents($filename);
 		if ($text === false)
 		{
 			throw new ExceptionDisplay('Cannot open file <em>'
 			. Url::html_output($filename) . '</em> for reading.');
 		}
-		$h = @fopen($filename, 'wb');
+		$h = fopen($filename, 'wb');
 		if ($h === false)
 		{
 			throw new ExceptionDisplay('Cannot open file <em>'
@@ -165,7 +165,7 @@ class Admin
 		. '/m', $new_name, $text));
 		fclose($h);
 	}
-	
+
 	/**
 	 * Validates a potential new password.
 	 *
@@ -183,7 +183,7 @@ class Admin
 			throw new ExceptionDisplay('Password must be at least 6 characters long.');
 		}
 	}
-	
+
 	/**
 	 * Changes a user's password.
 	 *
@@ -205,7 +205,7 @@ class Admin
 			throw new ExceptionDisplay('Incorrect old password.');
 		}
 		global $config;
-		$h = @fopen($config -> __get('user_list'), 'wb');
+		$h = fopen($config -> __get('user_list'), 'wb');
 		if ($h === false)
 		{
 			throw new ExceptionDisplay("Could not open file <em>$user_list</em> for writing."
@@ -223,7 +223,7 @@ class Admin
 		$_SESSION['password'] = sha1($new_pass1);
 		throw new ExceptionDisplay('Password successfully changed.');
 	}
-	
+
 	/**
 	 * Changes a user's level.
 	 *
@@ -242,7 +242,7 @@ class Admin
 			throw new ExceptionDisplay('Cannot change level: username does not exist.');
 		}
 		global $config;
-		$h = @fopen($config -> __get('user_list'), 'wb');
+		$h = fopen($config -> __get('user_list'), 'wb');
 		if ($h === false)
 		{
 			throw new ExceptionDisplay("Could not open file <em>$user_list</em> for writing."
@@ -259,7 +259,7 @@ class Admin
 		fclose($h);
 		throw new ExceptionDisplay('User level successfully changed.');
 	}
-	
+
 	/**
 	 * @param string $username The name of the new user to create
 	 * @param string $pass1 The raw password
@@ -280,7 +280,7 @@ class Admin
 		if ($home_dir != '')
 		{
 			$home_dir = Item::make_sure_slash($home_dir);
-			if (!@is_dir($home_dir))
+			if (!is_dir($home_dir))
 			{
 				throw new ExceptionDisplay('The user\'s home directory is not valid directory.');
 			}
@@ -291,7 +291,7 @@ class Admin
 			throw new ExceptionDisplay('This username already exists.');
 		}
 		global $config;
-		$h = @fopen($config -> __get('user_list'), 'ab');
+		$h = fopen($config -> __get('user_list'), 'ab');
 		if ($h === false)
 		{
 			throw new ExceptionDisplay('User list file could not be opened for writing.');
@@ -301,7 +301,7 @@ class Admin
 		fclose($h);
 		throw new ExceptionDisplay('User successfully added.');
 	}
-	
+
 	/**
 	 * @param string $username Deletes user with the name $username
 	 */
@@ -313,7 +313,7 @@ class Admin
 			throw new ExceptionDisplay('Cannot delete user: username does not exist.');
 		}
 		global $config;
-		$h = @fopen($config -> __get('user_list'), 'wb');
+		$h = fopen($config -> __get('user_list'), 'wb');
 		if ($h === false)
 		{
 			throw new ExceptionDisplay("Could not open file <em>$user_list</em> for writing."
@@ -329,7 +329,7 @@ class Admin
 		fclose($h);
 		throw new ExceptionDisplay('User successfully removed.');
 	}
-	
+
 	/**
 	 * @param User $current_user This user is checked to make sure it really is an admin
 	 */
@@ -342,7 +342,7 @@ class Admin
 		$this -> level = $current_user -> level;
 		$this -> username = $current_user -> username;
 	}
-	
+
 	/**
 	 * @param string $action
 	 */
@@ -350,7 +350,7 @@ class Admin
 	{
 		//This is a list of the actions moderators can do (otherwise, the user must be an admin)
 		$mod_actions = array('edit_description', 'change_password', 'ftp');
-		
+
 		if (in_array(strtolower($action), $mod_actions))
 		{
 			if ($this -> level < MODERATOR)
@@ -367,7 +367,7 @@ class Admin
 			case 'config':
 			{
 				/** Include the config generator file. */
-				if (!@include_once(CONFIG_GENERATOR))
+				if (!include_once(CONFIG_GENERATOR))
 				{
 					throw new ExceptionDisplay('Error including file <em>'
 					. CONFIG_GENERATOR . '</em>');
@@ -382,7 +382,7 @@ class Admin
 				}
 				global $dir;
 				$old = $dir . Url::clean_input($_GET['filename']);
-				if (!@file_exists($old))
+				if (!file_exists($old))
 				{
 					header('HTTP/1.0 404 Not Found');
 					throw new ExceptionDisplay('Specified file could not be found.');
@@ -394,11 +394,11 @@ class Admin
 					{
 						throw new ExceptionDisplay('Filename unchanged.');
 					}
-					if (@file_exists($new))
+					if (file_exists($new))
 					{
 						throw new ExceptionDisplay('Cannot overwrite existing file.');
 					}
-					if (@rename($old, $new))
+					if (rename($old, $new))
 					{
 						global $config;
 						if (DOWNLOAD_COUNT)
@@ -439,12 +439,12 @@ class Admin
 				{
 					global $dir;
 					$to_delete = $dir . Url::clean_input($_GET['filename']);
-					if (!@file_exists($to_delete))
+					if (!file_exists($to_delete))
 					{
 						header('HTTP/1.0 404 Not Found');
 						throw new ExceptionDisplay('Specified file could not be found.');
 					}
-					if (@is_dir($to_delete))
+					if (is_dir($to_delete))
 					{
 						if (self::rmdir_recursive($to_delete))
 						{
@@ -452,7 +452,7 @@ class Admin
 						}
 						throw new ExceptionDisplay('Error deleting folder.');
 					}
-					if (@unlink($to_delete))
+					if (unlink($to_delete))
 					{
 						throw new ExceptionDisplay('File successfully deleted.');
 					}
@@ -573,7 +573,7 @@ class Admin
 						//if it's already set, update the old description
 						{
 							//update the new description on disk
-							$h = @fopen($config -> __get('description_file'), 'wb');
+							$h = fopen($config -> __get('description_file'), 'wb');
 							if ($h === false)
 							{
 								throw new ExceptionDisplay('Could not open description file for writing.'
@@ -584,14 +584,14 @@ class Admin
 								fwrite($h, "$file\t" . (($file == $filename) ? $_GET['description'] : $info) . "\n");
 							}
 							fclose($h);
-							
+
 							//update the new description in memory
 							$descriptions -> set($filename, $_GET['description']);
 						}
 						else if ($_GET['description'] != '')
 						//if it's not set, add it to the end
 						{
-							$h = @fopen($config -> __get('description_file'), 'ab');
+							$h = fopen($config -> __get('description_file'), 'ab');
 							if ($h === false)
 							{
 								throw new ExceptionDisplay('Could not open description file for writing.'
@@ -599,7 +599,7 @@ class Admin
 							}
 							fwrite($h, "$filename\t" . $_GET['description'] . "\n");
 							fclose($h);
-							
+
 							//read the description file with the updated data
 							$descriptions = new ConfigData($config -> __get('description_file'));
 						}
@@ -637,7 +637,7 @@ class Admin
 				if (isset($_GET['add']) && $_GET['add'] != '')
 				{
 					global $config;
-					$h = @fopen($config -> __get('hidden_files'), 'ab');
+					$h = fopen($config -> __get('hidden_files'), 'ab');
 					if ($h === false)
 					{
 						throw new ExceptionDisplay('Unable to open hidden files list for writing.');
@@ -649,7 +649,7 @@ class Admin
 				if (isset($_GET['remove']))
 				{
 					global $config;
-					$h = @fopen($config -> __get('hidden_files'), 'wb');
+					$h = fopen($config -> __get('hidden_files'), 'wb');
 					if ($h === false)
 					{
 						throw new ExceptionDisplay('Unable to open hidden files list for writing.');
@@ -672,7 +672,7 @@ class Admin
 				. Url::html_output($_SERVER['PHP_SELF']) . '"><p><input type="hidden" name="action" value="edit_hidden" />'
 				. '<input type="text" name="add" size="40" /> <input type="submit" value="'
 				. $words -> __get('add') . '" /></p></form>';
-				
+
 				$str .= '<hr class="autoindex_hr" /><h4>' . $words -> __get('remove a hidden file')
 				. ':</h4><form method="get" action="'
 				. Url::html_output($_SERVER['PHP_SELF']) . '"><p><select name="remove">';
@@ -693,7 +693,7 @@ class Admin
 				if (isset($_GET['add']) && $_GET['add'] != '')
 				{
 					global $config;
-					$h = @fopen($config -> __get('banned_list'), 'ab');
+					$h = fopen($config -> __get('banned_list'), 'ab');
 					if ($h === false)
 					{
 						throw new ExceptionDisplay('Unable to open banned_list for writing.');
@@ -705,7 +705,7 @@ class Admin
 				if (isset($_GET['remove']))
 				{
 					global $b_list, $config;
-					$h = @fopen($config -> __get('banned_list'), 'wb');
+					$h = fopen($config -> __get('banned_list'), 'wb');
 					if ($h === false)
 					{
 						throw new ExceptionDisplay('Unable to open banned_list for writing.');
@@ -725,7 +725,7 @@ class Admin
 				. Url::html_output($_SERVER['PHP_SELF']) . '"><p><input type="hidden" name="action" value="edit_banned" />'
 				. '<input type="text" name="add" size="40" /> <input type="submit" value="'
 				. $words -> __get('add') . '" /></p></form>';
-				
+
 				$str .= '<hr class="autoindex_hr" /><h4>'
 				. $words -> __get('remove a ban') . ':</h4><form method="get" action="'
 				. Url::html_output($_SERVER['PHP_SELF']) . '"><p><select name="remove">';
@@ -932,7 +932,7 @@ class Admin
 			}
 		}
 	}
-	
+
 	/**
 	 * @return string The HTML text that makes up the admin panel
 	 */
@@ -940,7 +940,7 @@ class Admin
 	{
 		global $words, $subdir;
 		$str = '';
-		
+
 		//only ADMIN accounts
 		if ($this -> level >= ADMIN) $str = '
 <p>

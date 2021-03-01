@@ -63,14 +63,14 @@ class Upload
 			}
 			$filename = Url::clean_input($filename);
 			$fullpathname = realpath($dir) . '/' . $filename;
-			if (@file_exists($fullpathname))
+			if (file_exists($fullpathname))
 			{
 				$errors .= "<li>$filename ["
 				. $words -> __get('file already exists') . ']</li>';
 			}
-			else if (@move_uploaded_file($file_upload['tmp_name'], $fullpathname))
+			else if (move_uploaded_file($file_upload['tmp_name'], $fullpathname))
 			{
-				@chmod($fullpathname, 0644);
+				chmod($fullpathname, 0644);
 				$uploaded_files .= "<li>$filename</li>";
 				$log -> add_entry("Uploaded file: $filename");
 			}
@@ -100,7 +100,7 @@ class Upload
 		echo new Display($str);
 		die();
 	}
-	
+
 	/**
 	 * @param User $current_user Makes sure the user has permission to upload files
 	 */
@@ -111,7 +111,7 @@ class Upload
 			throw new ExceptionDisplay('Your user account does not have permission to upload files.');
 		}
 	}
-	
+
 	/**
 	 * @return string The HTML that makes up the upload form
 	 */

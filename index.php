@@ -113,18 +113,18 @@ define('VERSION', '2.2.4');
  */
 define('IN_AUTOINDEX', true);
 
-if (@get_magic_quotes_gpc())
+if (get_magic_quotes_gpc())
 //remove any slashes added by the "magic quotes" setting
 {
 	$_GET = array_map('stripslashes', $_GET);
 	$_POST = array_map('stripslashes', $_POST);
 }
-if (function_exists('set_magic_quotes_runtime')) @set_magic_quotes_runtime(0);
+if (function_exists('set_magic_quotes_runtime')) set_magic_quotes_runtime(0);
 
 $_GET = array_change_key_case($_GET, CASE_LOWER);
 $_POST = array_change_key_case($_POST, CASE_LOWER);
 
-if (@ini_get('zlib.output_compression') == '1')
+if (ini_get('zlib.output_compression') == '1')
 //compensate for compressed output set in php.ini
 {
 	header('Content-Encoding: gzip');
@@ -196,7 +196,7 @@ function __autoload($class)
 	{
 		$file = PATH_TO_CLASSES . $class . '.php';
 		/** Try to load the class file. */
-		if (!@include_once($file))
+		if (!include_once($file))
 		{
 			die(simple_display('Error including file <em>'
 			. htmlentities($file) . '</em> - cannot load class.'));
@@ -215,19 +215,19 @@ class ExceptionFatal extends Exception {}
 try
 {
 	//now we need to include either the stored settings, or the config generator:
-	if (@is_file(CONFIG_STORED))
+	if (is_file(CONFIG_STORED))
 	{
-		if (!@is_readable(CONFIG_STORED))
+		if (!is_readable(CONFIG_STORED))
 		{
 			throw new ExceptionFatal('Make sure PHP has permission to read the file <em>'
 			. Url::html_output(CONFIG_STORED) . '</em>');
 		}
 		$config = new ConfigData(CONFIG_STORED);
 	}
-	else if (@is_file(CONFIG_GENERATOR))
+	else if (is_file(CONFIG_GENERATOR))
 	{
 		/** Include the config generator so a new config file can be created. */
-		if (!@include_once(CONFIG_GENERATOR))
+		if (!include_once(CONFIG_GENERATOR))
 		{
 			throw new ExceptionFatal('Error including file <em>'
 			. Url::html_output(CONFIG_GENERATOR) . '</em>');
@@ -250,7 +250,7 @@ try
 	}
 	else
 	{
-		$_SESSION['host'] = $host = @gethostbyaddr($ip);
+		$_SESSION['host'] = $host = gethostbyaddr($ip);
 	}
 
 
@@ -301,10 +301,10 @@ try
 	 */
 
 	$b_list = $only_these_ips = $banned_ips = array();
-	if (BANNED_LIST && @is_file($config -> __get('banned_list')))
+	if (BANNED_LIST && is_file($config -> __get('banned_list')))
 	//make sure the user is not banned
 	{
-		$b_list = @file($config -> __get('banned_list'));
+		$b_list = file($config -> __get('banned_list'));
 		if ($b_list === false)
 		{
 			throw new ExceptionDisplay('Error reading from banned_list file.');
@@ -341,10 +341,10 @@ try
 	}
 
 	$show_only_these_files = $hidden_files = array();
-	if (HIDDEN_FILES && @is_file($config -> __get('hidden_files')))
+	if (HIDDEN_FILES && is_file($config -> __get('hidden_files')))
 	//store the hidden file list in $hidden_list
 	{
-		$hidden_list = @file($config -> __get('hidden_files'));
+		$hidden_list = file($config -> __get('hidden_files'));
 		if ($hidden_list === false)
 		{
 			throw new ExceptionDisplay('Error reading from "hidden_files" file.');
@@ -374,9 +374,9 @@ try
 
 	if (DOWNLOAD_COUNT)
 	{
-		if (!@is_file($config -> __get('download_count')))
+		if (!is_file($config -> __get('download_count')))
 		{
-			$h = @fopen($config -> __get('download_count'), 'wb');
+			$h = fopen($config -> __get('download_count'), 'wb');
 			if ($h === false)
 			{
 				throw new ExceptionDisplay('Could not open download count file for writing.'
@@ -427,7 +427,7 @@ try
 	{
 		$dir .= Url::clean_input($_GET['dir']);
 		$dir = Item::make_sure_slash($dir);
-		if (!@is_dir($dir))
+		if (!is_dir($dir))
 		{
 			header('HTTP/1.0 404 Not Found');
 			$_GET['dir'] = ''; //so the "continue" link will work
@@ -443,7 +443,7 @@ try
 				$file = substr($file, 0, -1);
 			}
 			$file = Url::clean_input($file);
-			if (!@is_file($dir . $file))
+			if (!is_file($dir . $file))
 			{
 				header('HTTP/1.0 404 Not Found');
 				throw new ExceptionDisplay('The file <em>'
@@ -477,7 +477,7 @@ try
 
 	if (DESCRIPTION_FILE)
 	{
-		$descriptions = new ConfigData((@is_file($config -> __get('description_file')))
+		$descriptions = new ConfigData((is_file($config -> __get('description_file')))
 			? $config -> __get('description_file') : false);
 	}
 
@@ -490,13 +490,13 @@ try
 	if (MD5_SHOW && isset($_GET['md5']) && $_GET['md5'] != '')
 	{
 		$file = $dir . Url::clean_input($_GET['md5']);
-		if (!@is_file($file))
+		if (!is_file($file))
 		{
 			header('HTTP/1.0 404 Not Found');
 			throw new ExceptionDisplay('Cannot calculate md5sum: the file <em>'
 			. Url::html_output($file) . '</em> does not exist.');
 		}
-		$size = (int)@filesize($file);
+		$size = (int)filesize($file);
 		if ($size <= 0 || $size / 1048576 > $config -> __get('md5_show'))
 		{
 			throw new ExceptionDisplay('Empty file, or file too big to calculate the'
@@ -528,7 +528,7 @@ try
 		header('Content-Type: ' . $mime -> __toString());
 		header('Content-Disposition: attachment; filename="'
 		. $outfile . '.tar"');
-		@set_time_limit(0);
+		set_time_limit(0);
 		$list = new DirectoryList($dir);
 		$tar = new Tar($list, $outfile, strlen($dir));
 		die();
@@ -581,7 +581,7 @@ try
 		$_SESSION['ref'] = true;
 	}
 
-	if (!@is_dir(CACHE_STORAGE_DIR))
+	if (!is_dir(CACHE_STORAGE_DIR))
 	{
 		if (!Admin::mkdir_recursive(CACHE_STORAGE_DIR))
 		//Attempt to create the directory. If it fails, tell the user to manually make the folder.
@@ -603,9 +603,9 @@ try
 	else if (ENABLE_CACHE)
 	{
 		$cache = CACHE_STORAGE_DIR . strtr($dir, '\/:', '---'); //path to cache file
-		if (@is_file($cache))
+		if (is_file($cache))
 		{
-			$contents = @file_get_contents($cache);
+			$contents = file_get_contents($cache);
 			if ($contents === false)
 			{
 				throw new ExceptionDisplay('Cannot open cache file for reading. Make sure PHP has read permission for these files.');
@@ -615,7 +615,7 @@ try
 		else
 		{
 			$dir_list = new DirectoryListDetailed($dir);
-			$h = @fopen($cache, 'wb');
+			$h = fopen($cache, 'wb');
 			if ($h === false)
 			{
 				throw new ExceptionDisplay('Cannot write to cache file. Make sure PHP has write permission in the cache directory.');

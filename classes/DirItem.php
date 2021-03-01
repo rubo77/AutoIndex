@@ -131,7 +131,7 @@ class DirItem extends Item
 		else
 		//regular folder
 		{
-			if (false && !@is_dir($this -> parent_dir . $filename))
+			if (false && !is_dir($this -> parent_dir . $filename))
 			{
 				throw new ExceptionDisplay('Directory <em>'
 				. Url::html_output($this -> parent_dir . $filename)

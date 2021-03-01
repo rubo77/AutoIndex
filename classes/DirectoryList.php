@@ -154,12 +154,12 @@ class DirectoryList implements Iterator {
 		if ($this->dir_md5 === null) $this->dir_md5 = md5($this->dir_name);
 		$file = CACHE_STORAGE_DIR.'.ht_'.$this->dir_md5.'_'.$prefix;
 		if ($value === null || $value === false) {
-			if (@file_exists($file)) {
-				$mtime = @filemtime($file);
+			if (file_exists($file)) {
+				$mtime = filemtime($file);
 				if ($value === false || $mtime > time() - 24*3600) {
 					if ($this->dir_mtime === null) $this->dir_mtime = filemtime($this->dir_name);
 					if ($mtime >= $this->dir_mtime) {
-						return @file_get_contents($file);
+						return file_get_contents($file);
 					}
 				}
 			}
@@ -252,10 +252,10 @@ class DirectoryList implements Iterator {
 	 */
 	public function __construct($path) {
 		$path = Item::make_sure_slash($path);
-		if (!@is_dir($path)) {
+		if (!is_dir($path)) {
 			throw new ExceptionDisplay('Directory <em>'.Url::html_output($path).'</em> does not exist.');
 		}
-		$temp_list = @scandir($path);
+		$temp_list = scandir($path);
 		if ($temp_list === false) {
 			throw new ExceptionDisplay('Error reading from directory <em>'.Url::html_output($path).'</em>.');
 		}
@@ -269,4 +269,4 @@ class DirectoryList implements Iterator {
 		$this->contents = $contents;
 		$this->i = 0;
 	}
-} 
+}
