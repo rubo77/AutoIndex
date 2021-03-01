@@ -3,7 +3,7 @@
 by Justin Hagstrom <JustinHagstrom [at] yahoo [dot] com> and Ruben Barkow-Kuder <github [at] r.z11.de>  
 AutoIndex is provided under the terms of the GNU General Public License (GPL).
 
-https://github.com/rubo77/AutoIndex
+https://github.com/rubo77/AutoIndex  
 Please post any questions as issue on GitHub.
 
 To install and run the script, simply upload the contents of this directory to a server with PHP support (PHP 5.0 or higher is required).  
@@ -33,6 +33,7 @@ To repair this, you can use the tool `jhead` to really rotate the images i.e. wi
 You can choose between those templates:
 
 - default
+- legacy
 - photoswipe_gallery
 - simple_image_gallery
 

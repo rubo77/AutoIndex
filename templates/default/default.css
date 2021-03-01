@@ -8,14 +8,14 @@
  * @copyright Copyright (C) 2002-2004 Justin Hagstrom
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License (GPL)
  *
- * @link http://autoindex.sourceforge.net
+ * @link https://github.com/rubo77/AutoIndex
  */
 
 /* Body */
 .autoindex_body, html
 {
 	font-family: verdana, lucidia, sans-serif;
-	font-size: 13px;
+	font-size: 1.1rem;
 	background-color: #F0F0F0;
 }
 
@@ -30,44 +30,45 @@
 {
 	width: 100%;
 	border: none;
-	border-spacing: 2px;
+	border-spacing: 0px;
+	border-collapse: collapse;
+	border-color: #333333;
 }
 .light_row
 {
-	background-color: #F2F6FC;
-	font-size: 13px;
+	background-color: #f2f2f2;
+	font-size: 1.1rem;
 }
 .dark_row
 {
-	background-color: #DADEEE;
-	font-size: 13px;
+	background-color: #dadada;
+	font-size: 1.1rem;
 }
-.autoindex_td
+.autoindex_td, .autoindex_td_right
 {
-	font-size: 13px;
+	font-size: 1.1rem;
 	font-family: verdana, lucidia, sans-serif;
 	vertical-align: top;
-	border: 1px solid #7F8FA9;
-	padding: 0px;
-	text-align: left;
+	border: 1px solid #bbbbbb;
+	padding: 0px 3px 0px 3px;
 	white-space: nowrap;
+	text-align: left;
+	vertical-align: bottom;
 }
 .autoindex_td_right
 {
-	font-size: 13px;
-	font-family: verdana, lucidia, sans-serif;
-	vertical-align: top;
-	border: 1px solid #7F8FA9;
-	padding: 0px;
 	text-align: right;
-	white-space: nowrap;
 }
 .autoindex_th
 {
-	font-size: 13px;
-	background-color: #7F8FAD;
+	font-size: 1.1rem;
+	background-color: #aaaaaa;
 	border: 1px solid #000010;
-	padding: 0px;
+	padding: 0px 5px 0px 5px;
+	text-align: right;
+}
+table.autoindex_table:nth-child(2) th:nth-child(1){
+	text-align: left;
 }
 
 /* Links */
@@ -78,7 +79,7 @@
 }
 .autoindex_a:link
 {
-	color: #0000FF;
+	color: #000000;
 	text-decoration: none;
 }
 .autoindex_a:visited, .autoindex_a:active, .autoindex_a:hover
@@ -86,31 +87,39 @@
 	color: #00008F;
 	text-decoration: none;
 }
-.light_row:hover, .dark_row:hover
-{
-	background-color: #FFFFA8;
+.light_row:hover{
+	background-color: #ececec;
 }
-
+.dark_row:hover {
+	background-color: #cfcfcf;
+}
+.filename:hover{
+	text-decoration: underline;
+}
+a.powered_by:hover{
+	text-decoration: underline;
+}
 /* Buttons */
-.button
-{
-	color: #707070;
-	background-color: #F2F6FC;
-	font-family: sans-serif;
-	font-size: 11px;
-	text-align: left;
-	vertical-align: middle;
-	font-weight: bold;
-	cursor: pointer;
+.button, a.button {
+	background-color: green;
 	border: none;
-	padding: 3px 10px 3px 10px;
+	color: white;
+	padding: 4px 22px 4px 22px;
+	cursor: pointer;
+	font-size: 1.3rem;
+	text-decoration: none;
+	margin:2px;
+	border-radius: 10px;
+}
+.button:hover, a.button:hover {
+	background-color: RoyalBlue;
 }
 
 /* Misc. */
 .paragraph
 {
 	background: #F2F6FC;
-	font-size: 13px;
+	font-size: 1.1rem;
 	color: #000020;
 }
 .autoindex_hr
@@ -123,5 +132,5 @@
 }
 .autoindex_small
 {
-	font-size: 10px;
+	font-size: 0.9rem;
 }

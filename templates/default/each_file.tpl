@@ -3,7 +3,7 @@
   <td class="autoindex_td">
    <a class="autoindex_a" href="{file:link}">
     {if:icon_path}<img loading="lazy" width="16" height="16" alt="[{file:file_ext}]" src="{file:icon}" />{end if:icon_path}
-    {file:thumbnail} {file:filename}
+    {file:thumbnail} <span class="filename">{file:filename}</span>
    </a>{file:new_icon}{file:md5_link}{file:delete_link}{file:rename_link}{file:edit_description_link}{file:ftp_upload_link}
   </td>
   {if:download_count}
