@@ -113,7 +113,7 @@ define('VERSION', '2.2.4');
  */
 define('IN_AUTOINDEX', true);
 
-if (get_magic_quotes_gpc())
+if (function_exists('get_magic_quotes_gpc') and get_magic_quotes_gpc())
 //remove any slashes added by the "magic quotes" setting
 {
 	$_GET = array_map('stripslashes', $_GET);
