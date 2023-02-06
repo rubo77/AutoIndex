@@ -10,6 +10,9 @@ To install and run the script, simply upload the contents of this directory to a
 Then, point your browser to the `index.php` file in that folder. The first time you do this, it will take you to a configuration page.  
 To use all the default values, just click the button at the bottom, or customize it however you want.
 
+Note: Performance fixes from SeriousBuggie's fork included with permission.
+      Made compatible with php8 by Dark1.
+
 # Webserver
 
 ## Serve a minimal PHP server on Port 3000
