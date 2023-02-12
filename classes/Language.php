@@ -60,14 +60,14 @@ class Language
 	 */
 	public static function get_all_langs($path)
 	{
-		if (($hndl = @opendir($path)) === false)
+		if (($hndl = opendir($path)) === false)
 		{
 			return false;
 		}
 		$list = array();
 		while (($file = readdir($hndl)) !== false)
 		{
-			if (@is_file($path . $file) && preg_match('/^[a-z]{2}(_[a-z]{2})?'
+			if (is_file($path . $file) && preg_match('/^[a-z]{2}(_[a-z]{2})?'
 			. preg_quote(LANGUAGE_FILE_EXT, '/') . '$/i', $file))
 			{
 				$list[] = $file;
@@ -128,7 +128,7 @@ class Language
 	{
 		$lang_file = PATH_TO_LANGUAGES . $this -> get_current_lang()
 			. LANGUAGE_FILE_EXT;
-		if (!@is_readable($lang_file))
+		if (!is_readable($lang_file))
 		{
 			throw new ExceptionFatal('Cannot read from language file: <em>' 
 			. Url::html_output($lang_file) . '</em>');

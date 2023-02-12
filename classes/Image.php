@@ -57,7 +57,7 @@ class Image
 	{
 		$thumbnail_height = $this -> height;
 		$file = $this -> filename;
-		if (!@is_file($file))
+		if (!is_file($file))
 		{
 			header('HTTP/1.0 404 Not Found');
 			throw new ExceptionDisplay('Image file not found: <em>'
@@ -67,19 +67,22 @@ class Image
 		{
 			case 'gif':
 			{
-				$src = @imagecreatefromgif($file);
+				$src = imagecreatefromgif($file);
 				break;
 			}
 			case 'jpeg':
 			case 'jpg':
 			case 'jpe':
 			{
-				$src = @imagecreatefromjpeg($file);
+				if(!function_exists('imagecreatefromjpeg')){
+					die("Error: missing function imagecreatefromjpeg! use <pre>sudo apt install php-gd</pre>");
+				}
+				$src = imagecreatefromjpeg($file);
 				break;
 			}
 			case 'png':
 			{
-				$src = @imagecreatefrompng($file);
+				$src = imagecreatefrompng($file);
 				break;
 			}
 			default:
