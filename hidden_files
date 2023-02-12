@@ -16,3 +16,4 @@ access_log
 /js
 /css
 README.md
+docker-compose.yml
