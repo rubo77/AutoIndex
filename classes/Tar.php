@@ -115,7 +115,7 @@ class Tar
 					new Tar($list, $this -> prepend_path, $this -> base_dir_length);
 				}
 			}
-			else if (@is_file($name) && @is_readable($name) && ($size = @filesize($name)))
+			else if (is_file($name) && is_readable($name) && ($size = filesize($name)))
 			{
 				echo $this -> create_header($name, $size, false);
 				Url::force_download($name, false);

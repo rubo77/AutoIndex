@@ -211,7 +211,7 @@ class Htaccess
 		$validated = false;
 		if (isset($_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW']))
 		{
-			$file = @file($this -> auth_user_file);
+			$file = file($this -> auth_user_file);
 			if ($file === false)
 			{
 				$_GET['dir'] = '';
@@ -301,7 +301,7 @@ class Htaccess
 	 */
 	private function parse($file)
 	{
-		$data = @file($file);
+		$data = file($file);
 		if ($data === false)
 		{
 			return;
@@ -381,7 +381,7 @@ class Htaccess
 				}
 				case 'include':
 				{
-					if (isset($parts[1]) && @is_file($parts[1]) && @is_readable($parts[1]))
+					if (isset($parts[1]) && is_file($parts[1]) && is_readable($parts[1]))
 					{
 						self::parse($parts[1]);
 					}
@@ -496,7 +496,7 @@ class Htaccess
 		}
 		$dir = Item::make_sure_slash($dir);
 		$file = $dir . $filename;
-		if (@is_file($file) && @is_readable($file))
+		if (is_file($file) && is_readable($file))
 		{
 			$this -> parse($dir . $filename);
 			$this -> check_deny();

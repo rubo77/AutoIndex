@@ -1,4 +1,26 @@
-</tr></table>
+
+ <tr>
+  <th class="autoindex_th">
+   <span class="autoindex_small">{info:total_files} {words:files} - {info:total_folders} {words:folders}</span>
+  </th>
+  {if:download_count}
+  <th class="autoindex_th">
+    <span class="autoindex_small">{words:total downloads}: {info:total_downloads}</span>
+  </th>
+  {end if:download_count}
+  <th class="autoindex_th">
+    <span class="autoindex_small">{words:total size}: {info:total_size}</span>
+  </th>
+  <th class="autoindex_th">
+   &nbsp;
+  </th>
+  {if:description_file}
+  <th class="autoindex_th">
+   &nbsp;
+  </th>
+  {end if:description_file}
+ </tr>
+</table>
 <div class="autoindex_small" style="text-align: right;">Powered by <a class="autoindex_a" href="http://autoindex.sourceforge.net/">AutoIndex PHP Script</a></div>
 		/* We request that you do not remove the link to the AutoIndex website.
 		   This not only gives respect to the large amount of time given freely by the
@@ -17,7 +39,9 @@
 
 
 {if:archive}
-<div class="autoindex_small" style="text-align: left;"><a class="autoindex_a" href="{info:archive_link}">{words:download directory as tar.gz archive}</a></div>
+<div class="autoindex_small" style="text-align: left;">
+	<a class="autoindex_a" href="{info:archive_link}">{words:download directory as tar.gz archive}</a>
+</div>
 {end if:archive}
 
 

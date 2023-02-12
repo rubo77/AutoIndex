@@ -3,9 +3,8 @@
 <!--
 
 Powered by AutoIndex PHP Script (version {info:version})
-Copyright (C) 2002-2021 Justin Hagstrom and Ruben Barkow-Kuder
+Copyright (C) 2002-2007 Justin Hagstrom
 http://autoindex.sourceforge.net
-https://github.com/rubo77/AutoIndex
 
 Page generated in {info:page_time} milliseconds.
 

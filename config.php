@@ -94,7 +94,7 @@ if (count($_POST) >= count($strings) + count($numbers))
 		$output .= "$setting\t{$_POST[$setting]}\n";
 	}
 	$output .= "\n*/\n\n?>";
-	
+
 	if (!isset($_POST['force_download']))
 	{
 		if (preg_match('#^(/|[a-z]\:)#i', $_POST['base_dir']))
@@ -115,25 +115,25 @@ if (count($_POST) >= count($strings) + count($numbers))
 	}
 	foreach (array('base_dir', 'template') as $valid)
 	{
-		if (!@is_dir($_POST[$valid]))
+		if (!is_dir($_POST[$valid]))
 		{
 			die(simple_display(htmlentities($valid)
 			. ' setting is not a valid directory.'));
 		}
 	}
-	
-	if (@is_file(CONFIG_STORED))
+
+	if (is_file(CONFIG_STORED))
 	//if the file already exists, back it up
 	{
 		$temp_name = CONFIG_STORED . '.bak';
-		for ($i = 1; @file_exists($temp_name); $i++)
+		for ($i = 1; file_exists($temp_name); $i++)
 		{
 			$temp_name = CONFIG_STORED . '.bak' . (string)$i;
 		}
-		@copy(CONFIG_STORED, $temp_name);
+		copy(CONFIG_STORED, $temp_name);
 	}
-	
-	$h = @fopen(CONFIG_STORED, 'wb');
+
+	$h = fopen(CONFIG_STORED, 'wb');
 	if ($h === false)
 	//the file could not be written to, so now it must be downloaded through the browser
 	{
@@ -146,7 +146,7 @@ if (count($_POST) >= count($strings) + count($numbers))
 	{
 		fwrite($h, $output);
 		fclose($h);
-		
+
 		//begin display of "configuration complete" page
 		echo '<?xml version="1.0" encoding="iso-8859-1"?>';
 		?>
@@ -210,9 +210,9 @@ $settings = array(
 	'language' => 'en',
 	'template' => './templates/default/',
 	'log_file' => 'false',
-	'description_file' => 'false',
+	'description_file' => 'file_descriptions',
 	'user_list' => '.htpasswd.autoindex',
-	'download_count' => 'false',
+	'download_count' => 'download_count',
 	'hidden_files' => 'hidden_files',
 	'banned_list' => 'false',
 	'show_dir_size' => 'true',
@@ -224,7 +224,7 @@ $settings = array(
 	'archive' => 'false',
 	'days_new' => '0',
 	'entries_per_page' => '0',
-	'thumbnail_height' => '0',
+	'thumbnail_height' => '200',
 	'bandwidth_limit' => '0',
 	'md5_show' => '0',
 	'parse_htaccess' => 'true'

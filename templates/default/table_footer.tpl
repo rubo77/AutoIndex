@@ -21,7 +21,7 @@
   {end if:description_file}
  </tr>
 </table>
-<div class="autoindex_small" style="text-align: right;">Powered by <a class="autoindex_a" href="http://autoindex.sourceforge.net/">AutoIndex PHP Script</a></div>
+<div class="autoindex_small" style="text-align: right;">Powered by <a class="autoindex_a powered_by" href="https://github.com/rubo77/AutoIndex">AutoIndex PHP Script</a></div>
 		/* We request that you do not remove the link to the AutoIndex website.
 		   This not only gives respect to the large amount of time given freely by the
 		   developer, but also helps build interest, traffic, and use of AutoIndex. */
@@ -40,7 +40,7 @@
 
 {if:archive}
 <div class="autoindex_small" style="text-align: left;">
-	<a class="autoindex_a" href="{info:archive_link}">{words:download directory as tar.gz archive}</a>
+	<a class="button" href="{info:archive_link}">{words:download directory as tar.gz archive}</a>
 </div>
 {end if:archive}
 
@@ -51,7 +51,7 @@
   {if:search_enabled}
   <td>
    <table><tr class="paragraph"><td class="autoindex_td" style="padding: 8px;">
-    {if:icon_path}<img src="{config:icon_path}search.png" width="16" height="16" alt="{words:search}" /> {end if:icon_path}{words:search}:
+    {if:icon_path}<img loading="lazy" src="{config:icon_path}search.png" width="16" height="16" alt="{words:search}" /> {end if:icon_path}{words:search}:
      {info:search_box}
    </td></tr></table>
   </td>
@@ -59,7 +59,7 @@
   {if:use_login_system}
   <td>
    <table><tr class="paragraph"><td class="autoindex_td" style="padding: 8px;">
-    {if:icon_path}<img src="{config:icon_path}login.png" width="12" height="14" alt="{words:login}" /> {end if:icon_path}{words:account}:
+    {if:icon_path}<img loading="lazy" src="{config:icon_path}login.png" width="12" height="14" alt="{words:login}" /> {end if:icon_path}{words:account}:
      {info:login_box}
    </td></tr></table>
   </td>
