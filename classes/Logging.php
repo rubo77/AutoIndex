@@ -61,7 +61,7 @@ class Logging
 	{
 		if (LOG_FILE)
 		{
-			$h = @fopen($this -> filename, 'ab');
+			$h = fopen($this -> filename, 'ab');
 			if ($h === false)
 			{
 				throw new ExceptionDisplay('Could not open log file "'.$this -> filename.'" for writing.'
@@ -80,11 +80,11 @@ class Logging
 	 */
 	public function display($max_num_to_display)
 	{
-		if (!@is_file($this -> filename))
+		if (!is_file($this -> filename))
 		{
 			throw new ExceptionDisplay('There are no entries in the log file.');
 		}
-		$file_array = @file($this -> filename);
+		$file_array = file($this -> filename);
 		if ($file_array === false)
 		{
 			throw new ExceptionDisplay('Could not open log file for reading.');

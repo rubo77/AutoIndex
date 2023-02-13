@@ -117,7 +117,7 @@ class Stats
 		global $config;
 		$log_file = $config -> __get('log_file');
 		$base_dir = $config -> __get('base_dir');
-		$h = @fopen($log_file, 'rb');
+		$h = fopen($log_file, 'rb');
 		if ($h === false)
 		{
 			throw new ExceptionDisplay("Cannot open log file: <em>$log_file</em>");

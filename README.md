@@ -1,20 +1,29 @@
 # AutoIndex PHP Script (version 3.x)
 
-by Justin Hagstrom <JustinHagstrom [at] yahoo [dot] com> and Ruben Barkow <github [at] r.z11.de>  
+by Justin Hagstrom <JustinHagstrom [at] yahoo [dot] com> and Ruben Barkow-Kuder <github [at] r.z11.de>  
 AutoIndex is provided under the terms of the GNU General Public License (GPL).
 
-https://github.com/rubo77/AutoIndex
+https://github.com/rubo77/AutoIndex  
 Please post any questions as issue on GitHub.
 
 To install and run the script, simply upload the contents of this directory to a server with PHP support (PHP 5.0 or higher is required).  
 Then, point your browser to the `index.php` file in that folder. The first time you do this, it will take you to a configuration page.  
 To use all the default values, just click the button at the bottom, or customize it however you want.
 
-# serve a minimal PHP server on Port 3000
+Note: Performance fixes from SeriousBuggie's fork included with permission.
+      Made compatible with php8 by Dark1.
+
+# Webserver
+
+## Serve a minimal PHP server on Port 3000
 
     php -S localhost:3000
 
-# Image thunbnail orientation
+## Or use Docker to create a container with apache and PHP:
+
+    docker-compose up -d
+
+# Image thumbnail orientation
 
 If you have images in your files, there is automatically generated a thumbnail. If
 they are rotated by EXIF data, PHP cannot correctly interpret this rotation correctly.
@@ -24,9 +33,15 @@ To repair this, you can use the tool `jhead` to really rotate the images i.e. wi
 
 # Templates
 
-This is a list of all the variables that can be used in the template files.
+You can choose between those templates:
 
- 
+- default
+- legacy
+- photoswipe_gallery
+- simple_image_gallery
+
+This is a list of all the variables that can be used in the template files:
+
 ## global_header.tpl / global_footer.tpl
 
 Info about the current directory:
@@ -52,7 +67,7 @@ You can include another specific file using the {include} command:
 
 Anything between `/*` and `*/` will not be displayed in the HTML output.
 
- 
+
 ## table_header.tpl / table_footer.tpl
 
 All previously mentioned variables, plus:
@@ -96,7 +111,7 @@ Sort modes:
 	{sort:description}
 	{sort:downloads}
 
- 
+
 ## each_file.tpl
 
 All previously mentioned variables, plus:

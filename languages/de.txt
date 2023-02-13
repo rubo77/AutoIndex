@@ -23,7 +23,7 @@ sort by	Sortiert nach
 search	Suche
 both	Beide
 search results for	Suchergebnisse f&uuml;r
-and its subdirectories	und seinen Subverzeichnissen
+and its subdirectories	und seinen Unterverzeichnissen
 
 account	User Account
 login	Login

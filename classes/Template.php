@@ -50,7 +50,7 @@ class Template
 	 * @var string The final output
 	 */
 	protected $out;
-	
+
 	/**
 	 * @param array $m The array given by preg_replace_callback()
 	 * @return string Looks up $m[1] in word list and returns match
@@ -60,7 +60,7 @@ class Template
 		global $words;
 		return $words -> __get(strtolower($m[1]));
 	}
-	
+
 	/**
 	 * @param array $m The array given by preg_replace_callback()
 	 * @return string The parsed template of filename $m[1]
@@ -70,7 +70,7 @@ class Template
 		$temp = new Template($m[1]);
 		return $temp -> __toString();
 	}
-	
+
 	/**
 	 * @param array $m The array given by preg_replace_callback()
 	 * @return string The setting for the config value $m[1]
@@ -80,7 +80,7 @@ class Template
 		global $config;
 		return $config -> __get(strtolower($m[1]));
 	}
-	
+
 	/**
 	 * Parses the text in $filename and sets the result to $out. We cannot
 	 * use ExceptionDisplay here if there is an error, since it uses the
@@ -99,23 +99,23 @@ class Template
 	{
 		global $config, $dir, $subdir;
 		$full_filename = $config -> __get('template') . $filename;
-		if (!@is_file($full_filename))
+		if (!is_file($full_filename))
 		{
 			throw new ExceptionFatal('Template file <em>'
 			. Url::html_output($full_filename) . '</em> cannot be found.');
 		}
-		
+
 		//read raw file contents
-		$contents = @file_get_contents($full_filename);
+		$contents = file_get_contents($full_filename);
 		if ($contents === false)
 		{
 			throw new ExceptionFatal('Template file <em>'
 			. Url::html_output($full_filename) . '</em> could not be opened for reading.');
 		}
-		
+
 		//remove comments
 		$contents = preg_replace('#/\*.*?\*/#s', '', $contents);
-		
+
 		//replace info variables and word strings from language file
 		$tr = array(
 			'{info:dir}' => (isset($dir) ? Url::html_output($dir) : ''),
@@ -124,7 +124,7 @@ class Template
 			'{info:page_time}' => round((microtime(true) - START_TIME) * 1000, 1));
 		$contents = preg_replace_callback('/\{\s*words?\s*:\s*(.+)\s*\}/Ui',
 			array('self', 'callback_words'), strtr($contents, $tr));
-		
+
 		//replace {config} variables
 		$contents = preg_replace_callback('/\{\s*config\s*:\s*(.+)\s*\}/Ui',
 			array('self', 'callback_config'), $contents);
@@ -133,7 +133,7 @@ class Template
 		$this -> out = preg_replace_callback('/\{\s*include\s*:\s*(.+)\s*\}/Ui',
 			array('self', 'callback_include'), $contents);
 	}
-	
+
 	/**
 	 * @return string The HTML text of the parsed template
 	 */

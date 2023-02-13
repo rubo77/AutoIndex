@@ -57,7 +57,7 @@ class Image
 	{
 		$thumbnail_height = $this -> height;
 		$file = $this -> filename;
-		if (!@is_file($file))
+		if (!is_file($file))
 		{
 			header('HTTP/1.0 404 Not Found');
 			throw new ExceptionDisplay('Image file not found: <em>'
@@ -67,7 +67,7 @@ class Image
 		{
 			case 'gif':
 			{
-				$src = @imagecreatefromgif($file);
+				$src = imagecreatefromgif($file);
 				break;
 			}
 			case 'jpeg':
@@ -82,7 +82,7 @@ class Image
 			}
 			case 'png':
 			{
-				$src = @imagecreatefrompng($file);
+				$src = imagecreatefrompng($file);
 				break;
 			}
 			default:

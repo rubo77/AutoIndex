@@ -111,7 +111,7 @@ class Accounts implements Iterator
 	public function __construct()
 	{
 		global $config;
-		$file = @file($config -> __get('user_list'));
+		$file = file($config -> __get('user_list'));
 		if ($file === false)
 		{
 			throw new ExceptionDisplay('Cannot open user account file.');

@@ -58,11 +58,11 @@ class Tar
 		$unsigned_chksum = 0;
 		for ($i = 0; $i < 512; $i++)
 		{
-			$unsigned_chksum += ord($data{$i});
+			$unsigned_chksum += ord($data[$i]);
 		}
 		for ($i = 148; $i < 156; $i++)
 		{
-			$unsigned_chksum -= ord($data{$i});
+			$unsigned_chksum -= ord($data[$i]);
 		}
 		return $unsigned_chksum + 256;
 	}
@@ -106,7 +106,7 @@ class Tar
 		foreach ($filenames as $base)
 		{
 			$name = $filenames -> __get('dir_name') . $base;
-			if (@is_dir($name))
+			if ($filenames->is_dir($base))
 			{
 				if ($base != '.' && $base != '..')
 				{
@@ -115,7 +115,7 @@ class Tar
 					new Tar($list, $this -> prepend_path, $this -> base_dir_length);
 				}
 			}
-			else if (@is_file($name) && @is_readable($name) && ($size = @filesize($name)))
+			else if (is_file($name) && is_readable($name) && ($size = filesize($name)))
 			{
 				echo $this -> create_header($name, $size, false);
 				Url::force_download($name, false);

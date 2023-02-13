@@ -43,7 +43,7 @@ class Url
 	 * @var string
 	 */
 	private $url;
-	
+
 	/**
 	 * Rawurlencodes $uri, but not slashes.
 	 *
@@ -55,7 +55,7 @@ class Url
 		$uri = rawurlencode(str_replace('\\', '/', $uri));
 		return str_replace(rawurlencode('/'), '/', $uri);
 	}
-	
+
 	/**
 	 * Returns the string with correct HTML entities so it can be displayed.
 	 *
@@ -64,9 +64,9 @@ class Url
 	 */
 	public static function html_output($str)
 	{
-		return htmlentities($str, ENT_QUOTES, 'UTF-8');
+		return htmlentities(self::fix($str), ENT_QUOTES, 'UTF-8');
 	}
-	
+
 	/**
 	 * Checks input for hidden files/folders, and deals with ".."
 	 *
@@ -99,7 +99,7 @@ class Url
 		{
 			return '';
 		}
-		if ($d{0} == '/' && $new_dir{0} != '/')
+		if ($d[0] == '/' && $new_dir[0] != '/')
 		{
 			$new_dir = '/' . $new_dir;
 		}
@@ -114,7 +114,7 @@ class Url
 		}
 		return $new_dir;
 	}
-	
+
 	/**
 	 * @param string $url The URL path to check and clean
 	 * @return string Resolves $url's special chars and runs eval_dir on it
@@ -132,32 +132,32 @@ class Url
 		}
 		return self::eval_dir( $newURL );
 	}
-	
+
 	/**
 	 * Sends the browser a header to redirect it to this URL.
 	 */
 	public function redirect()
 	{
-		$site = $this -> url;
+		$site = $this->url;
 		header("Location: $site");
 		die(simple_display('Redirection header could not be sent.<br />'
 		. "Continue here: <a href=\"$site\">$site</a>"));
 	}
-	
+
 	/**
 	 * @param string $file_dl
 	 * @param bool $headers
 	 */
 	public static function force_download($file_dl, $headers = true)
 	{
-		if (!@is_file($file_dl))
+		if (!is_file($file_dl))
 		{
 			header('HTTP/1.0 404 Not Found');
 			throw new ExceptionDisplay('The file <em>'
 			. self::html_output($file_dl)
 			. '</em> could not be found on this server.');
 		}
-		if (!($fn = @fopen($file_dl, 'rb')))
+		if (!($fn = fopen($file_dl, 'rb')))
 		{
 			throw new ExceptionDisplay('<h3>Error 401: permission denied</h3> you cannot access <em>'
 			. Url::html_output($file_dl) . '</em> on this server.');
@@ -165,7 +165,7 @@ class Url
 		if ($headers)
 		{
 			$outname = Item::get_basename($file_dl);
-			$size = @filesize($file_dl);
+			$size = filesize($file_dl);
 			if ($size !== false)
 			{
 				header('Content-Length: ' . $size);
@@ -177,7 +177,7 @@ class Url
 		global $speed;
 		while (true)
 		{
-			$temp = @fread($fn, (int)($speed * 1024));
+			$temp = fread($fn, (int)($speed * 1024));
 			if ($temp === '')
 			{
 				break;
@@ -191,7 +191,7 @@ class Url
 		}
 		fclose($fn);
 	}
-	
+
 	/**
 	 * Downloads the URL on the user's browser, using either the redirect()
 	 * or force_download() functions.
@@ -200,13 +200,25 @@ class Url
 	{
 		if (FORCE_DOWNLOAD)
 		{
-			@set_time_limit(0);
+			set_time_limit(0);
 			self::force_download(self::clean_input($this -> url));
 			die();
 		}
 		$this -> redirect();
 	}
-	
+
+	private static $cp = null;
+	public static function fix($text) {
+		if (strpos(PHP_OS, 'WIN') === 0) {
+			if (self::$cp === null) {
+				$cp = explode('.', setlocale(LC_CTYPE, ''));
+				self::$cp = $cp[1];
+			}
+			$text = iconv('Windows-'.self::$cp, 'utf-8', $text);
+		}
+		return $text;
+	}
+
 	/**
 	 * @param string $text_url The URL to create an object from
 	 * @param bool $special_chars If true, translate_uri will be run on the url
@@ -215,11 +227,11 @@ class Url
 	{
 		if ($special_chars)
 		{
-			$text_url = self::translate_uri($text_url);
+			$text_url = self::translate_uri(self::fix($text_url));
 		}
 		$this -> url = $text_url;
 	}
-	
+
 	/**
 	 * @return string Returns the URL as a string
 	 */

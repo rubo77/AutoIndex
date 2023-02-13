@@ -5,8 +5,10 @@
    {file:thumbnail}
   </a>
   {if:description_file}
-    <figcaption itemprop="caption description"{file:if:is_dir} onclick="window.location='{file:link}'"{end if}>
+    {file:if:is_dir}<a class="autoindex_a" href="{file:link}" onclick="window.location='{file:link}'">{end if}
+    <figcaption itemprop="caption description">
         {file:filename}
     </figcaption>
+    {file:if:is_dir}</a>{end if}
   {end if:description_file}
 </figure>
