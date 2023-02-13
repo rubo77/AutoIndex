@@ -1,0 +1,17 @@
+# See: http://editorconfig.org
+
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = false
+trim_trailing_whitespace = false
+
+[*.{php,sh,json,inc,thtml,ctp,js}]
+indent_size = 4
+indent_style = tab
+
+[*.sh]
+indent_size = 4
+indent_style = space
