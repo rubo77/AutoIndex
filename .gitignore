@@ -3,3 +3,4 @@ access_log
 download_count
 /AutoIndex.conf.php
 .ht_cache
+.tags
