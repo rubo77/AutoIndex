@@ -482,11 +482,20 @@ a.pswp__share--download:hover {
   background: none; }
 
   
-  /* 
-    Adaptions by rubo77
-  */
+/* 
+  Adaptions by rubo77
+*/
 
-  .pswp__button--arrow--left, .pswp__button--arrow--right {
-   width: 500px;
-   height: 300px;
-  }
+.pswp__button--arrow--left, .pswp__button--arrow--right {
+  width: 500px;
+  height: 300px;
+}
+
+.folderlink{
+  padding: 20px 7px 20px 10px;
+}
+
+.back-link{
+  font-size: 54px;
+  text-decoration: none;
+}
