@@ -491,8 +491,12 @@ a.pswp__share--download:hover {
   height: 300px;
 }
 
-.folderlink{
+.autoindex_a{
   padding: 20px 7px 20px 10px;
+}
+
+a > figcaption{
+  min-height: 10%;
 }
 
 .back-link{
