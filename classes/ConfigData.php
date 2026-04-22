@@ -147,10 +147,8 @@ class ConfigData implements Iterator
 			}
 			if (isset($this -> config[$parts[0]]))
 			{
-				throw new ExceptionFatal('Error in <em>'
-				. Url::html_output($file) . '</em> on line ' . ($i + 1)
-				. '.<br />' . Url::html_output($parts[0])
-				. ' is already defined.');
+				$this -> config[$parts[0]] = (int)($this -> config[$parts[0]]) + (int)($parts[1]);
+				continue;
 			}
 			$this -> config[$parts[0]] = $parts[1];
 		}
