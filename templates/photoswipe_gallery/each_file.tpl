@@ -2,7 +2,7 @@
 
 <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
   {file:if:is_dir}
-  <a class="autoindex_a" href="{file:link}" style="display: flex; justify-content: center; align-items: center; width: 100%; height: 100%; padding: 10px; box-sizing: border-box;">
+  <a itemprop="contentUrl" data-size="x" href="{file:link}" style="display: flex; justify-content: center; align-items: center; width: 100%; height: 100%; padding: 10px; box-sizing: border-box; color: black; text-decoration: none; font-weight: bold;" class="autoindex_a">
         {file:filename}
   </a>
   {end if}
