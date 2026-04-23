@@ -113,7 +113,7 @@ class Image
 		else
 		{
 			$src_width = imagesx($src);
-			$thumb_width = $thumbnail_height * ($src_width / $src_height);
+			$thumb_width = (int)($thumbnail_height * ($src_width / $src_height));
 			$thumb = imagecreatetruecolor($thumb_width, $thumbnail_height);
 			imagecopyresampled($thumb, $src, 0, 0, 0, 0, $thumb_width,
 				$thumbnail_height, $src_width, $src_height);
