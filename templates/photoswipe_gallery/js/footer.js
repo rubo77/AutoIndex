@@ -63,8 +63,6 @@ var initPhotoSwipeFromDOM = function(gallerySelector) {
     // triggers when user clicks on thumbnail
     var onThumbnailsClick = function(e) {
         e = e || window.event;
-        e.preventDefault ? e.preventDefault() : e.returnValue = false;
-
         var eTarget = e.target || e.srcElement;
 
         // find root element of slide
@@ -75,6 +73,15 @@ var initPhotoSwipeFromDOM = function(gallerySelector) {
         if(!clickedListItem) {
             return;
         }
+
+        // Check if this is a directory (data-size="x")
+        var linkEl = clickedListItem.children[0];
+        if (linkEl && linkEl.getAttribute('data-size') === 'x') {
+            // Allow default click behavior for directories
+            return;
+        }
+
+        e.preventDefault ? e.preventDefault() : e.returnValue = false;
 
         // find index of clicked item by looping through all child nodes
         // alternatively, you may define index via data- attribute
