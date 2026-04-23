@@ -60,7 +60,7 @@ class DirectoryList implements Iterator {
 	/**
 	 * @return string The element $i currently points to in the array
 	 */
-	public function current() {
+	public function current(): mixed {
 		if ($this->i < count($this->contents)) {
 			return $this->contents[$this->i];
 		}
@@ -73,29 +73,28 @@ class DirectoryList implements Iterator {
 	 *
 	 * @return string The current position of the pointer in the array
 	 */
-	public function next() {
+	public function next(): void {
 		$this->i++;
-		return $this->current();
 	}
 
 	/**
 	 * Sets the internal array pointer to 0
 	 */
-	public function rewind() {
+	public function rewind(): void {
 		$this->i = 0;
 	}
 
 	/**
 	 * @return bool True if $i is a valid array index
 	 */
-	public function valid() {
+	public function valid(): bool {
 		return ($this->i < count($this->contents));
 	}
 
 	/**
 	 * @return int Returns $i, the key of the array
 	 */
-	public function key() {
+	public function key(): mixed {
 		return $this->i;
 	}
 	//end implementation of Iterator
@@ -153,6 +152,16 @@ class DirectoryList implements Iterator {
 	private function cache_file($prefix, $value = null) {
 		if ($this->dir_md5 === null) $this->dir_md5 = md5($this->dir_name);
 		$file = CACHE_STORAGE_DIR.'.ht_'.$this->dir_md5.'_'.$prefix;
+		if (!is_dir(CACHE_STORAGE_DIR)) {
+			throw new ExceptionDisplay('Cache directory <em>'
+			. Url::html_output(CACHE_STORAGE_DIR)
+			. '</em> does not exist.');
+		}
+		if (!is_writable(CACHE_STORAGE_DIR)) {
+			throw new ExceptionDisplay('Cache directory <em>'
+			. Url::html_output(CACHE_STORAGE_DIR)
+			. '</em> is not writable. Check permissions.');
+		}
 		if ($value === null || $value === false) {
 			if (file_exists($file)) {
 				$mtime = filemtime($file);

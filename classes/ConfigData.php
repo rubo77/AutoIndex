@@ -59,7 +59,7 @@ class ConfigData implements Iterator
 	/**
 	 * @return string
 	 */
-	public function current()
+	public function current(): mixed
 	{
 		return current($this -> config);
 	}
@@ -69,20 +69,19 @@ class ConfigData implements Iterator
 	 *
 	 * @return string
 	 */
-	public function next()
+	public function next(): void
 	{
 		$t = next($this -> config);
 		if ($t === false)
 		{
 			$this -> valid = false;
 		}
-		return $t;
 	}
 	
 	/**
 	 * Sets the internal array pointer to the beginning.
 	 */
-	public function rewind()
+	public function rewind(): void
 	{
 		reset($this -> config);
 	}
@@ -90,7 +89,7 @@ class ConfigData implements Iterator
 	/**
 	 * @return bool
 	 */
-	public function valid()
+	public function valid(): bool
 	{
 		return $this -> valid;
 	}
@@ -98,7 +97,7 @@ class ConfigData implements Iterator
 	/**
 	 * @return string
 	 */
-	public function key()
+	public function key(): mixed
 	{
 		return key($this -> config);
 	}

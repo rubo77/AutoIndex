@@ -45,6 +45,16 @@ class DirItem extends Item
 	private $temp_list;
 
 	/**
+	 * @var string
+	 */
+	public $width;
+
+	/**
+	 * @var string
+	 */
+	public $height;
+
+	/**
 	 * @return string Always returns 'dir', since this is a directory, not a file
 	 */
 	public function file_ext()

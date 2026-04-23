@@ -123,15 +123,15 @@ class Template
 			'{info:version}' => VERSION,
 			'{info:page_time}' => round((microtime(true) - START_TIME) * 1000, 1));
 		$contents = preg_replace_callback('/\{\s*words?\s*:\s*(.+)\s*\}/Ui',
-			array('self', 'callback_words'), strtr($contents, $tr));
+			array(self::class, 'callback_words'), strtr($contents, $tr));
 
 		//replace {config} variables
 		$contents = preg_replace_callback('/\{\s*config\s*:\s*(.+)\s*\}/Ui',
-			array('self', 'callback_config'), $contents);
+			array(self::class, 'callback_config'), $contents);
 
 		//parse includes
 		$this -> out = preg_replace_callback('/\{\s*include\s*:\s*(.+)\s*\}/Ui',
-			array('self', 'callback_include'), $contents);
+			array(self::class, 'callback_include'), $contents);
 	}
 
 	/**

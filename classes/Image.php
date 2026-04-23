@@ -67,6 +67,9 @@ class Image
 		{
 			case 'gif':
 			{
+				if(!function_exists('imagecreatefromgif')){
+					die("Error: GD library not installed. Install with: <pre>sudo apt install php-gd</pre>");
+				}
 				$src = imagecreatefromgif($file);
 				break;
 			}
@@ -75,13 +78,16 @@ class Image
 			case 'jpe':
 			{
 				if(!function_exists('imagecreatefromjpeg')){
-					die("Error: missing function imagecreatefromjpeg! use <pre>sudo apt install php-gd</pre>");
+					die("Error: GD library not installed. Install with: <pre>sudo apt install php-gd</pre>");
 				}
 				$src = imagecreatefromjpeg($file);
 				break;
 			}
 			case 'png':
 			{
+				if(!function_exists('imagecreatefrompng')){
+					die("Error: GD library not installed. Install with: <pre>sudo apt install php-gd</pre>");
+				}
 				$src = imagecreatefrompng($file);
 				break;
 			}

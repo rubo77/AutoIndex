@@ -40,6 +40,16 @@ if (!defined('IN_AUTOINDEX') || !IN_AUTOINDEX)
 class FileItem extends Item
 {
 	/**
+	 * @var string
+	 */
+	public $width;
+
+	/**
+	 * @var string
+	 */
+	public $height;
+
+	/**
 	 * @param string $fn The filename
 	 * @return string Everything after the list dot in the filename, not including the dot
 	 */
