@@ -22,3 +22,5 @@ impressum.html
 img
 docker-compose.yml
 .editorconfig
+run.sh
+deploy.sh

@@ -4,3 +4,4 @@ download_count
 /AutoIndex.conf.php
 .ht_cache
 .tags
+deploy.sh
