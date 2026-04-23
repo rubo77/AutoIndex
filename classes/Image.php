@@ -55,10 +55,12 @@ class Image
 	 */
 	public function __toString()
 	{
+		ob_start();
 		$thumbnail_height = $this -> height;
 		$file = $this -> filename;
 		if (!is_file($file))
 		{
+			ob_end_clean();
 			header('HTTP/1.0 404 Not Found');
 			throw new ExceptionDisplay('Image file not found: <em>'
 			. Url::html_output($file) . '</em>');
@@ -68,6 +70,7 @@ class Image
 			case 'gif':
 			{
 				if(!function_exists('imagecreatefromgif')){
+					ob_end_clean();
 					die("Error: GD library not installed. Install with: <pre>sudo apt install php-gd</pre>");
 				}
 				$src = imagecreatefromgif($file);
@@ -78,6 +81,7 @@ class Image
 			case 'jpe':
 			{
 				if(!function_exists('imagecreatefromjpeg')){
+					ob_end_clean();
 					die("Error: GD library not installed. Install with: <pre>sudo apt install php-gd</pre>");
 				}
 				$src = imagecreatefromjpeg($file);
@@ -86,6 +90,7 @@ class Image
 			case 'png':
 			{
 				if(!function_exists('imagecreatefrompng')){
+					ob_end_clean();
 					die("Error: GD library not installed. Install with: <pre>sudo apt install php-gd</pre>");
 				}
 				$src = imagecreatefrompng($file);
@@ -93,22 +98,21 @@ class Image
 			}
 			default:
 			{
+				ob_end_clean();
 				throw new ExceptionDisplay('Unsupported file extension.');
 			}
 		}
 		if ($src === false)
 		{
+			ob_end_clean();
 			throw new ExceptionDisplay('Unsupported image type.');
 		}
-		
-		header('Content-Type: image/jpeg');
-		header('Cache-Control: public, max-age=3600, must-revalidate');
-		header('Expires: ' . gmdate('D, d M Y H:i:s', time() + 3600)
-		. ' GMT');
+
 		$src_height = imagesy($src);
+		$temp_file = tempnam(sys_get_temp_dir(), 'thumb_');
 		if ($src_height <= $thumbnail_height)
 		{
-			imagejpeg($src, '', 95);
+			imagejpeg($src, $temp_file, 95);
 		}
 		else
 		{
@@ -117,10 +121,26 @@ class Image
 			$thumb = imagecreatetruecolor($thumb_width, $thumbnail_height);
 			imagecopyresampled($thumb, $src, 0, 0, 0, 0, $thumb_width,
 				$thumbnail_height, $src_width, $src_height);
-			imagejpeg($thumb);
+			imagejpeg($thumb, $temp_file);
 			imagedestroy($thumb);
 		}
 		imagedestroy($src);
+
+		$error_output = ob_get_clean();
+
+		if (!empty($error_output))
+		{
+			unlink($temp_file);
+			echo $error_output;
+			die();
+		}
+
+		header('Content-Type: image/jpeg');
+		header('Cache-Control: public, max-age=3600, must-revalidate');
+		header('Expires: ' . gmdate('D, d M Y H:i:s', time() + 3600)
+			. ' GMT');
+		readfile($temp_file);
+		unlink($temp_file);
 		die();
 	}
 	
