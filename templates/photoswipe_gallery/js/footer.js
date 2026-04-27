@@ -92,8 +92,14 @@ var initPhotoSwipeFromDOM = function(gallerySelector) {
             index;
 
         for (var i = 0; i < numChildNodes; i++) {
-            if(childNodes[i].nodeType !== 1) { 
-                continue; 
+            if(childNodes[i].nodeType !== 1) {
+                continue;
+            }
+
+            // Skip directories (data-size="x") in index counting
+            var childLinkEl = childNodes[i].children[0];
+            if (childLinkEl && childLinkEl.getAttribute('data-size') === 'x') {
+                continue;
             }
 
             if(childNodes[i] === clickedListItem) {
