@@ -154,7 +154,9 @@ class Language
 	{
 		if ($this -> translation_data -> is_set($var))
 		{
-			return $this -> translation_data -> __get($var);
+			$translated = $this -> translation_data -> __get($var);
+			$translated = str_replace('\n', '<br>', $translated);
+			return $translated;
 		}
 		throw new ExceptionDisplay('Variable <em>' . Url::html_output($var)
 		. '</em> not set in Language file.');

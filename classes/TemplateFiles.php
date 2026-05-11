@@ -89,7 +89,7 @@ class TemplateFiles extends TemplateInfo
 			case 'filename':
 			{
 				// added by rubo77
-				return Url::html_output(filename_to_description($this -> temp_item -> __get('filename')));
+				return filename_to_description($this -> temp_item -> __get('filename'));
 			}
 			case 'file_ext':
 			{
