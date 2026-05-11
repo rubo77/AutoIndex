@@ -2,7 +2,7 @@
 // Updated by tagdancer <info@dirk-boedeker.de>
 
 index of	Index von
-parent directory	Uebergeordnetes Verzeichnis
+parent directory	◀ Zur Hauptgallerie
 thumbnail of	Thumbnail von
 continue	Weiter
 

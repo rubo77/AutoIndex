@@ -175,7 +175,7 @@ class DirectoryListDetailed extends DirectoryList
 				$temp = new DirItem($path, $t, $mtime[$this->key()]);
 				if ($temp -> __get('is_parent_dir'))
 				{
-					$dirs[] = $temp;
+					$parent_dir = $temp;
 					$subtract_parent = true;
 				}
 				else if ($temp -> __get('filename') !== false)
@@ -197,7 +197,12 @@ class DirectoryListDetailed extends DirectoryList
 		}
 		self::sort_list($dirs);
 		self::sort_list($files);
-		$this -> contents = array_merge($dirs, $files);
+		// Merge: parent dir first, then files, then subdirectories
+		$this -> contents = array_merge(
+			isset($parent_dir) ? array($parent_dir) : array(),
+			$files,
+			$dirs
+		);
 		$this -> total_size = new Size($total_size);
 		$this -> total_files = count($files);
 		$this -> raw_total_folders = $this -> total_folders = count($dirs);
